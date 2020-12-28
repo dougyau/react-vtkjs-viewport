@@ -43,9 +43,9 @@ function vtkInteractorStyleMPRWindowLevel(publicAPI, model) {
       .getRange();
     const imageDynamicRange = range[1] - range[0];
     const multiplier =
-      Math.round(imageDynamicRange / 1024) * publicAPI.getLevelScale();
-    const dx = Math.round((pos[0] - model.wlStartPos[0]) * multiplier);
-    const dy = Math.round((pos[1] - model.wlStartPos[1]) * multiplier);
+      Math.ceil(imageDynamicRange / 1024) * publicAPI.getLevelScale();
+    const dx = Math.ceil((pos[0] - model.wlStartPos[0]) * multiplier);
+    const dy = Math.ceil((pos[1] - model.wlStartPos[1]) * multiplier);
 
     let windowWidth = model.levels.windowWidth + dx;
     let windowCenter = model.levels.windowCenter - dy;
