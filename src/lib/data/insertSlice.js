@@ -23,14 +23,19 @@ export default function insertSlice(
   );
 
   const pixels = image.getPixelData();
-  const sliceLength = pixels.length;
+  const sliceLength = pixels.length / 4;
 
   let pixelIndex = 0;
   let max = scalingFunction(pixels[pixelIndex]);
   let min = max;
+  let channelIdx = 0;
 
-  for (let pixelIndex = 0; pixelIndex < pixels.length; pixelIndex++) {
-    const destIdx = pixelIndex + sliceIndex * sliceLength;
+  for (
+    let pixelIndex = 0;
+    pixelIndex < pixels.length;
+    pixelIndex = pixelIndex + 4
+  ) {
+    const destIdx = channelIdx + sliceIndex * sliceLength;
     const pixel = pixels[pixelIndex];
     const pixelValue = scalingFunction(pixel);
 
@@ -41,6 +46,7 @@ export default function insertSlice(
     }
 
     scalarData[destIdx] = pixelValue;
+    channelIdx++;
   }
 
   return { min, max };
